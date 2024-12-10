@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Planner</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Event Planner</h1>
+            <p>Plan, Manage, and Track Your Events Easily!</p>
+        </div>
+    </header>
+    <main>
+        <section id="map-container">
+            <h2>Find Events Near You</h2>
+            <div id="map"></div>
+        </section>
+        <section id="events-section">
+            <h2>Upcoming Events</h2>
+            <div id="events-container" class="events-list">
+                <!-- Dynamic content -->
+            </div>
+        </section>
+        <section id="create-event-section">
+            <h2>Create a New Event</h2>
+            <form id="event-form">
+                <div class="form-group">
+                    <label for="title">Event Title</label>
+                    <input type="text" id="title" placeholder="Enter event title" required>
+                </div>
+                <div class="form-group">
+                    <label for="description">Event Description</label>
+                    <textarea id="description" placeholder="Enter event description" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="date">Event Date</label>
+                    <input type="date" id="date" required>
+                </div>
+                <div class="form-group">
+                    <label for="location">Event Location</label>
+                    <input type="text" id="location" placeholder="Enter event location" required>
+                </div>
+                <button type="submit">Add Event</button>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Event Planner. All Rights Reserved.</p>
+    </footer>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY"></script>
+    <script src="script.js"></script>
+</body>
+</html>
