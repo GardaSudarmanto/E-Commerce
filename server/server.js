@@ -1,26 +1,29 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const eventsApi = require('./api/events');
+const authApi = require('./api/auth');
 
 const server = http.createServer((req, res) => {
-    const filePath = path.join(
-        __dirname,
-        req.url === '/' ? 'index.html' : req.url
-    );
-    const ext = path.extname(filePath);
-    const contentType = ext === '.css' ? 'text/css' : 'text/html';
+    if (req.url.startsWith('/api/events')) {
+        eventsApi.handle(req, res);
+    } else if (req.url.startsWith('/api/auth')) {
+        authApi.handle(req, res);
+    } else {
+        const filePath = path.join(__dirname, '../public', req.url === '/' ? 'login.html' : req.url);
+        const ext = path.extname(filePath);
+        const contentType = ext === '.css' ? 'text/css' : ext === '.js' ? 'application/javascript' : 'text/html';
 
-    fs.readFile(filePath, (err, content) => {
-        if (err) {
-            res.writeHead(404, { 'Content-Type': 'text/html' });
-            res.end('<h1>404 Not Found</h1>', 'utf-8');
-        } else {
-            res.writeHead(200, { 'Content-Type': contentType });
-            res.end(content, 'utf-8');
-        }
-    });
+        fs.readFile(filePath, (err, content) => {
+            if (err) {
+                res.writeHead(404, { 'Content-Type': 'text/html' });
+                res.end('<h1>404 Not Found</h1>');
+            } else {
+                res.writeHead(200, { 'Content-Type': contentType });
+                res.end(content);
+            }
+        });
+    }
 });
 
-server.listen(3000, () => {
-    console.log('Server running at http://localhost:3000/');
-});
+server.listen(3000, () => console.log('Server running on http://localhost:3000'));
