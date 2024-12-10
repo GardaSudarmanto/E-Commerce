@@ -1,145 +1,250 @@
-/* Reset CSS */
-body, h1, h2, h3, p, div, section, header, footer {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+/* General Body Styles */
 body {
     font-family: 'Arial', sans-serif;
-    line-height: 1.6;
-    background-color: #f8f9fa;
-    color: #333;
-}
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-/* Header */
-header {
-    background: linear-gradient(135deg, #007bff, #0056b3);
-    color: #fff;
-    text-align: center;
-    padding: 40px 0;
-}
-header h1 {
-    font-size: 2.5rem;
-    margin-bottom: 10px;
-}
-header p {
-    font-size: 1.2rem;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #121212; /* Dark background */
+    color: #f5f5f5; /* Light text for contrast */
 }
 
-/* Sections */
-main {
-    padding: 20px 0;
-}
-section {
-    margin: 20px 0;
-    padding: 20px;
-    background: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-}
-section h2 {
-    margin-bottom: 20px;
-    color: #0056b3;
-    font-size: 1.8rem;
-}
-
-/* Map */
-#map-container {
-    text-align: center;
-}
-#map {
+/* Login Wrapper */
+.login-wrapper {
     width: 100%;
-    height: 300px;
-    margin: 20px 0;
+    max-width: 1000px;
+    background: #1e1e1e; /* Darker container background */
     border-radius: 8px;
-    border: 1px solid #ddd;
-}
-
-/* Event List */
-.events-list {
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
 }
-.events-list div {
-    background: #f8f9fa;
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    width: calc(33.333% - 20px);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+/* Login Form Container */
+.login-form-container {
+    flex: 1;
+    padding: 40px;
 }
-.events-list div h3 {
-    font-size: 1.2rem;
-    color: #333;
+
+.login-form-container h1 {
+    font-size: 2rem;
+    color: #ffcc00; /* Yellow accent */
     margin-bottom: 10px;
 }
-.events-list div p {
-    font-size: 0.9rem;
-    color: #666;
+
+.login-form-container p {
+    font-size: 1rem;
+    margin-bottom: 20px;
+    color: #cccccc; /* Subtle gray */
 }
 
-/* Form */
-#event-form {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 15px;
-}
-.form-group {
-    display: flex;
-    flex-direction: column;
-}
-.form-group label {
+label {
+    font-weight: bold;
     margin-bottom: 5px;
-    font-size: 0.9rem;
-    color: #555;
+    display: block;
+    color: #ffcc00; /* Yellow accent */
 }
-.form-group input,
-.form-group textarea {
+
+input, textarea {
+    width: 100%;
     padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    border: 1px solid #333;
+    border-radius: 5px;
     font-size: 1rem;
+    background: #2c2c2c; /* Dark input background */
+    color: #f5f5f5;
+    margin-bottom: 10px;
 }
+
+input::placeholder,
+textarea::placeholder {
+    color: #aaaaaa; /* Lighter placeholder text */
+}
+
+/* Buttons */
 button {
-    padding: 10px 20px;
-    background: #007bff;
-    color: #fff;
+    background: #ffcc00; /* Yellow accent */
+    color: #121212; /* Dark text for contrast */
     border: none;
-    border-radius: 4px;
-    cursor: pointer;
+    padding: 10px 20px;
+    border-radius: 5px;
     font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
+
 button:hover {
-    background: #0056b3;
+    background: #e6b800; /* Slightly darker yellow */
+    transform: scale(1.05); /* Button hover effect */
 }
 
-/* Footer */
-footer {
-    text-align: center;
-    background: #333;
-    color: #fff;
-    padding: 10px 0;
-    margin-top: 20px;
+/* Error Messages */
+.error {
+    color: #ff4c4c; /* Bright red for errors */
     font-size: 0.9rem;
+    margin-top: 10px;
 }
 
-@media (max-width: 768px) {
-    .events-list div {
-        width: calc(50% - 20px);
-    }
+/* Admin Dashboard */
+.admin-header {
+    background: #1e1e1e;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #ffcc00; /* Yellow accent */
 }
 
-@media (max-width: 576px) {
-    .events-list div {
-        width: 100%;
-    }
-    #map {
-        height: 200px;
-    }
+.admin-main {
+    display: flex;
+}
+
+.admin-sidebar {
+    width: 200px;
+    background: #1e1e1e;
+    padding: 20px;
+    color: #cccccc;
+    border-right: 1px solid #333;
+}
+
+.admin-sidebar h2 {
+    color: #ffcc00;
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+.admin-sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.admin-sidebar ul li {
+    margin: 10px 0;
+}
+
+.admin-sidebar ul li a {
+    color: #f5f5f5;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+.admin-sidebar ul li a:hover {
+    color: #ffcc00;
+}
+
+.admin-content {
+    flex: 1;
+    padding: 20px;
+}
+
+.admin-content h2 {
+    color: #ffcc00;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+}
+
+.events-list {
+    background: #2c2c2c;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.events-list .event-item {
+    background: #1e1e1e;
+    padding: 15px;
+    margin-bottom: 10px;
+    border: 1px solid #333;
+    border-radius: 5px;
+    color: #f5f5f5;
+}
+
+/* Login Page Wrapper */
+.login-wrapper {
+    width: 100%;
+    max-width: 1000px;
+    background: #1e1e1e; /* Dark mode background */
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-wrap: wrap;
+    color: #f5f5f5; /* Light text color */
+}
+
+/* Login Form Container */
+.login-form-container {
+    flex: 1;
+    padding: 40px;
+}
+
+.login-form-container h1 {
+    font-size: 2rem;
+    color: #ffcc00; /* Yellow accent */
+    margin-bottom: 10px;
+}
+
+.login-form-container p {
+    font-size: 1rem;
+    margin-bottom: 20px;
+    color: #cccccc; /* Subtle gray */
+}
+
+.form-group label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+    color: #ffcc00; /* Yellow accent */
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #333;
+    border-radius: 5px;
+    font-size: 1rem;
+    background: #2c2c2c; /* Dark input background */
+    color: #f5f5f5;
+}
+
+input::placeholder {
+    color: #aaaaaa; /* Light gray placeholder */
+}
+
+/* Buttons */
+button {
+    background: #ffcc00; /* Yellow accent */
+    color: #121212; /* Dark text for contrast */
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background: #e6b800; /* Slightly darker yellow */
+    transform: scale(1.05); /* Subtle hover animation */
+}
+
+/* Error Messages */
+.error {
+    color: #ff4c4c; /* Red for error messages */
+    font-size: 0.9rem;
+    margin-top: 10px;
+}
+
+/* Login Illustration */
+.login-image img {
+    width: 100%;
+    max-width: 400px;
+    object-fit: cover;
+    display: block;
+    background: #1e1e1e;
 }

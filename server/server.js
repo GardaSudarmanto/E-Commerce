@@ -27,3 +27,48 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(3000, () => console.log('Server running on http://localhost:3000'));
+
+const express = require('express');
+const fs = require('fs');
+
+const app = express();
+const DATABASE_FILE = 'database.json';
+
+// Initialize the database if it doesn't exist
+if (!fs.existsSync(DATABASE_FILE)) {
+    const defaultData = {
+        users: [
+            {
+                username: 'admin',
+                password: 'admin123', // Hash in a real-world app!
+                role: 'admin',
+            },
+        ],
+        events: [],
+    };
+    fs.writeFileSync(DATABASE_FILE, JSON.stringify(defaultData, null, 2));
+    console.log('Database initialized with default admin user.');
+}
+
+// Middleware to parse JSON
+app.use(express.json());
+
+// Your routes go here...
+app.post('/api/auth/login', (req, res) => {
+    const { username, password } = req.body;
+
+    // Read users from the database
+    const data = JSON.parse(fs.readFileSync(DATABASE_FILE));
+    const user = data.users.find(u => u.username === username && u.password === password);
+
+    if (user) {
+        res.json({ message: 'Login successful', role: user.role });
+    } else {
+        res.status(401).json({ message: 'Invalid credentials' });
+    }
+});
+
+// Start the server
+app.listen(3000, () => {
+    console.log('Server running on http://localhost:3000');
+});
