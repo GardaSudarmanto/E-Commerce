@@ -28,6 +28,10 @@
             <h2>Create a New Event</h2>
             <form id="event-form">
                 <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" placeholder="Enter your name" required>
+                </div>
+                <div class="form-group">
                     <label for="title">Event Title</label>
                     <input type="text" id="title" placeholder="Enter event title" required>
                 </div>
@@ -40,17 +44,86 @@
                     <input type="date" id="date" required>
                 </div>
                 <div class="form-group">
-                    <label for="location">Event Location</label>
-                    <input type="text" id="location" placeholder="Enter event location" required>
+                    <label for="location">Event Location (Google Maps Link)</label>
+                    <input type="url" id="location" placeholder="Enter Google Maps link" required>
                 </div>
-                <button type="submit">Add Event</button>
+                <button type="submit">Create Event</button>
             </form>
         </section>
     </main>
     <footer>
-        <p>&copy; 2024 Event Planner. All Rights Reserved.</p>
+        <div class="container">
+            <p>&copy; 2024 Event Planner. All rights reserved.</p>
+        </div>
     </footer>
     <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY"></script>
     <script src="script.js"></script>
+    <script>
+        document.getElementById('event-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const title = document.getElementById('title').value;
+            const description = document.getElementById('description').value;
+            const date = document.getElementById('date').value;
+            const location = document.getElementById('location').value;
+
+            const eventData = {
+                name,
+                title,
+                description,
+                date,
+                location
+            };
+
+            fetch('http://localhost:3000/events', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(eventData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                const eventContainer = document.createElement('div');
+                eventContainer.classList.add('event');
+
+                eventContainer.innerHTML = `
+                    <h3>${data.title}</h3>
+                    <p><strong>Organized by:</strong> ${data.name}</p>
+                    <p>${data.description}</p>
+                    <p><strong>Date:</strong> ${data.date}</p>
+                    <p><strong>Location:</strong> <a href="${data.location}" target="_blank">View on Google Maps</a></p>
+                `;
+
+                document.getElementById('events-container').appendChild(eventContainer);
+
+                // Clear the form
+                document.getElementById('event-form').reset();
+            })
+            .catch(error => console.error('Error:', error));
+        });
+
+        // Fetch and display existing events
+        fetch('http://localhost:3000/events')
+            .then(response => response.json())
+            .then(events => {
+                events.forEach(event => {
+                    const eventContainer = document.createElement('div');
+                    eventContainer.classList.add('event');
+
+                    eventContainer.innerHTML = `
+                        <h3>${event.title}</h3>
+                        <p><strong>Organized by:</strong> ${event.name}</p>
+                        <p>${event.description}</p>
+                        <p><strong>Date:</strong> ${event.date}</p>
+                        <p><strong>Location:</strong> <a href="${event.location}" target="_blank">View on Google Maps</a></p>
+                    `;
+
+                    document.getElementById('events-container').appendChild(eventContainer);
+                });
+            })
+            .catch(error => console.error('Error:', error));
+    </script>
 </body>
 </html>

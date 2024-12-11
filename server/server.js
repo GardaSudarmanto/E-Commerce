@@ -29,10 +29,18 @@ const server = http.createServer((req, res) => {
 server.listen(3000, () => console.log('Server running on http://localhost:3000'));
 
 const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
 const fs = require('fs');
 
 const app = express();
+const PORT = 3000;
 const DATABASE_FILE = 'database.json';
+
+app.use(bodyParser.json());
+app.use(cors());
+
+let events = [];
 
 // Initialize the database if it doesn't exist
 if (!fs.existsSync(DATABASE_FILE)) {
@@ -68,7 +76,17 @@ app.post('/api/auth/login', (req, res) => {
     }
 });
 
+app.post('/events', (req, res) => {
+    const event = req.body;
+    events.push(event);
+    res.status(201).send(event);
+});
+
+app.get('/events', (req, res) => {
+    res.status(200).send(events);
+});
+
 // Start the server
-app.listen(3000, () => {
-    console.log('Server running on http://localhost:3000');
+app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
 });
