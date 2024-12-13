@@ -5,10 +5,156 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Event Planner</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* General Body Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background: linear-gradient(45deg, black 50%, transparent 50%), url('bgconcert.jpg') no-repeat bottom right;
+            background-size: cover;
+            color: white; /* Ensure text is readable on black background */
+        }
+
+        /* Header and Footer */
+        header, footer {
+            background-color: black; /* Black background */
+            padding: 1rem;
+            text-align: center;
+            color: white; /* White text */
+        }
+
+        /* Main Content */
+        main {
+            flex: 1;
+            padding: 1rem;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Form Styles */
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            background-color: rgba(0, 0, 0, 0.5); /* Black with 50% opacity */
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            color: white; /* Ensure text is readable */
+        }
+
+        /* Theme Switch */
+        .theme-switch-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .theme-switch {
+            display: inline-block;
+            height: 34px;
+            position: relative;
+            width: 60px;
+        }
+
+        .theme-switch input {
+            display: none;
+        }
+
+        .slider {
+            background-color: #ccc;
+            bottom: 0;
+            cursor: pointer;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            transition: .4s;
+        }
+
+        .slider:before {
+            background-color: #fff;
+            bottom: 4px;
+            content: "";
+            height: 26px;
+            left: 4px;
+            position: absolute;
+            transition: .4s;
+            width: 26px;
+        }
+
+        input:checked + .slider {
+            background-color: #2196F3;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        .slider.round {
+            border-radius: 34px;
+        }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+
+        /* Dark Mode Styles */
+        [data-theme="dark"] {
+            background: linear-gradient(45deg, black 50%, transparent 50%), url('bgconcert.jpg') no-repeat bottom right;
+            background-size: cover;
+            color: white;
+        }
+
+        [data-theme="dark"] header, [data-theme="dark"] footer {
+            background-color: black;
+            color: white;
+        }
+
+        [data-theme="dark"] .form-group input,
+        [data-theme="dark"] .form-group textarea {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+        }
+
+        /* Light Mode Styles */
+        [data-theme="light"] {
+            background: linear-gradient(45deg, white 50%, transparent 50%), url('bgconcert.jpg') no-repeat bottom right;
+            background-size: cover;
+            color: black;
+        }
+
+        [data-theme="light"] header, [data-theme="light"] footer {
+            background-color: white;
+            color: black;
+        }
+
+        [data-theme="light"] .form-group input,
+        [data-theme="light"] .form-group textarea {
+            background-color: rgba(255, 255, 255, 0.5);
+            color: black;
+        }
+    </style>
 </head>
 <body>
     <header>
         <div class="container">
+            <div class="theme-switch-wrapper">
+                <label class="theme-switch" for="checkbox">
+                    <input type="checkbox" id="checkbox" />
+                    <div class="slider round"></div>
+                </label>
+                <em>Enable Dark Mode!</em>
+            </div>
             <h1>Event Planner</h1>
             <p>Plan, Manage, and Track Your Events Easily!</p>
         </div>
@@ -124,6 +270,30 @@
                 });
             })
             .catch(error => console.error('Error:', error));
+
+        // Dark mode toggle
+        const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
+        const currentTheme = localStorage.getItem('theme');
+
+        if (currentTheme) {
+            document.documentElement.setAttribute('data-theme', currentTheme);
+
+            if (currentTheme === 'dark') {
+                toggleSwitch.checked = true;
+            }
+        }
+
+        function switchTheme(e) {
+            if (e.target.checked) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        toggleSwitch.addEventListener('change', switchTheme, false);
     </script>
 </body>
 </html>

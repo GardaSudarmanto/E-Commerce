@@ -10,7 +10,7 @@
     <div class="login-wrapper">
         <div class="login-container">
             <div class="login-image">
-                <img src="dark-theme-login.jpg" alt="Event Planning Illustration">
+                <img src="dark-theme-login.jpg" alt="Event Planning">
             </div>
             <div class="login-form-container">
                 <h1>Login</h1>
@@ -45,8 +45,8 @@
             const result = await response.json();
 
             if (response.ok) {
-                localStorage.setItem('role', result.role);
-                window.location.href = result.role === 'admin' ? '/admin.html' : '/index.html';
+                localStorage.setItem('token', result.token);
+                window.location.href = '/admin';
             } else {
                 document.getElementById('error-message').textContent = result.message;
             }

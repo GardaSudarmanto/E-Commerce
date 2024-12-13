@@ -4,8 +4,9 @@ body {
     margin: 0;
     padding: 0;
     display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
     background: linear-gradient(45deg, black 50%, transparent 50%), url('bgconcert.jpg') no-repeat bottom right;
     background-size: cover;
     color: white; /* Ensure text is readable on black background */
@@ -32,6 +33,10 @@ main {
 }
 
 /* Form Styles */
+.form-group {
+    margin-bottom: 1rem;
+}
+
 .form-group input,
 .form-group textarea {
     width: 100%;
@@ -45,7 +50,11 @@ main {
 
 /* Login Wrapper */
 .login-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
+    height: 100%;
     max-width: 1000px;
     background: #1e1e1e; /* Darker container background */
     border-radius: 8px;
@@ -57,6 +66,7 @@ main {
 
 /* Login Form Container */
 .login-form-container {
+    width: 100%;
     flex: 1;
     padding: 40px;
 }
@@ -98,26 +108,25 @@ textarea::placeholder {
 
 /* Buttons */
 button {
-    background: #ffcc00; /* Yellow accent */
-    color: #121212; /* Dark text for contrast */
+    width: 100%;
+    padding: 0.5rem;
+    background-color: #ffcc00; /* Yellow accent */
     border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 1rem;
+    border-radius: 4px;
+    color: black; /* Ensure text is readable */
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 button:hover {
-    background: #e6b800; /* Slightly darker yellow */
+    background-color: #e6b800; /* Darker yellow on hover */
     transform: scale(1.05); /* Button hover effect */
 }
 
 /* Error Messages */
 .error {
-    color: #ff4c4c; /* Bright red for errors */
-    font-size: 0.9rem;
-    margin-top: 10px;
+    color: red;
+    margin-top: 1rem;
 }
 
 /* Admin Dashboard */
@@ -274,9 +283,20 @@ button:hover {
 
 /* Login Illustration */
 .login-image img {
-    width: 100%;
-    max-width: 400px;
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 1rem;
     object-fit: cover;
     display: block;
     background: #1e1e1e;
+}
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
 }

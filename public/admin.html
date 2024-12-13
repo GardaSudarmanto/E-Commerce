@@ -42,25 +42,50 @@
                         <input type="date" id="date" required>
                     </div>
                     <div class="form-group">
-                        <label for="location">Event Location</label>
-                        <input type="text" id="location" placeholder="Enter event location" required>
+                        <label for="location">Event Location (Google Maps Link)</label>
+                        <input type="url" id="location" placeholder="Enter Google Maps link" required>
                     </div>
-                    <button type="submit">Add Event</button>
+                    <button type="submit">Create Event</button>
                 </form>
             </section>
         </section>
     </main>
     <script src="script.js"></script>
     <script>
-        if (localStorage.getItem('role') !== 'admin') {
-            alert('Access denied');
+        document.getElementById('logout-btn').addEventListener('click', () => {
+            localStorage.removeItem('token');
+            window.location.href = '/login.html';
+        });
+
+        // Fetch and display events
+        const token = localStorage.getItem('token');
+        if (!token) {
             window.location.href = '/login.html';
         }
 
-        document.getElementById('logout-btn').addEventListener('click', () => {
-            localStorage.removeItem('role');
-            window.location.href = '/login.html';
-        });
+        fetch('http://localhost:3000/events', {
+            headers: {
+                'x-access-token': token
+            }
+        })
+        .then(response => response.json())
+        .then(events => {
+            events.forEach(event => {
+                const eventContainer = document.createElement('div');
+                eventContainer.classList.add('event');
+
+                eventContainer.innerHTML = `
+                    <h3>${event.title}</h3>
+                    <p><strong>Organized by:</strong> ${event.name}</p>
+                    <p>${event.description}</p>
+                    <p><strong>Date:</strong> ${event.date}</p>
+                    <p><strong>Location:</strong> <a href="${event.location}" target="_blank">View on Google Maps</a></p>
+                `;
+
+                document.getElementById('events-container').appendChild(eventContainer);
+            });
+        })
+        .catch(error => console.error('Error:', error));
     </script>
 </body>
 </html>
